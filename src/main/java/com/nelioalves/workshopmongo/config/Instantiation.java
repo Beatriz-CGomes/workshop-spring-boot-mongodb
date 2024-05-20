@@ -35,9 +35,9 @@ public class Instantiation implements CommandLineRunner {
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
 		User bob = new User(null, "Bob Grey", "bob@gmail.com");
-		
+
 		// salvando no banco de dados
-		//salvandos os usuarios primeira para a classe author pegar a copia dos objetos
+		// salvandos os usuarios primeira para a classe author pegar a copia dos objetos
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 
 		Post post1 = new Post(null, sdf.parse("21/03/2024"), "Partiu viagem", "Vou viajar para SP abraços",
@@ -46,6 +46,9 @@ public class Instantiation implements CommandLineRunner {
 
 		// salvando no banco de dados
 		postRepository.saveAll(Arrays.asList(post1, post2));
+
+		maria.getPost().addAll(Arrays.asList(post1, post2));
+		userRepository.save(maria);
 
 	}
 

@@ -1,12 +1,15 @@
 package com.nelioalves.workshopmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="user")
+@Document(collection = "user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -15,6 +18,9 @@ public class User implements Serializable {
 	private String id;
 	private String name;
 	private String email;
+
+	@DBRef(lazy = true) //para carregar apenas o usuario sem as postagens
+	private List<Post> post = new ArrayList<>();
 
 	public User() {
 
@@ -49,6 +55,14 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<Post> getPost() {
+		return post;
+	}
+
+	public void setPost(List<Post> post) {
+		this.post = post;
 	}
 
 	@Override
